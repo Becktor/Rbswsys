@@ -7,7 +7,7 @@ namespace DatabaseManagementSystem
 	{
 		public string ID{ get; private set;}
 		static int nextClientID;
-		string name;
+		public string name;
 
 		public Client(string nameOfClient)
 		{
