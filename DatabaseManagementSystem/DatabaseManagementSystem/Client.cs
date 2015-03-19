@@ -11,7 +11,7 @@ namespace DatabaseManagementSystem
 		public Client(string nameOfClient, string identifier)
 		{
 			this.ID = identifier;
-			this.name = name;
+            this.name = nameOfClient;
 		}
 	}
 }
