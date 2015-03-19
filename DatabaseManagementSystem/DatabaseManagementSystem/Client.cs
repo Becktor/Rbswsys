@@ -1,18 +1,26 @@
 ﻿using System;
+using System.Threading;
 
 namespace DatabaseManagementSystem
 {
 	public class Client
 	{
+		public string ID{ get; private set;}
+		static int nextClientID;
 		string name;
-		string ID;
 
-		//Constructor
-		public Client(string nameOfClient, string identifier)
+		public Client(string nameOfClient)
 		{
-			this.ID = identifier;
-			this.name = name;
+			this.ID = this.getIncrementelID();
+			this.name = nameOfClient;
 		}
+
+		// Give every client a unique ID
+		private string getIncrementelID(){
+			return Interlocked.Increment(ref nextClientID).ToString();
+		}
+
+
 	}
 }
 

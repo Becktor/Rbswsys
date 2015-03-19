@@ -1,23 +1,47 @@
 ﻿using System;
+using System.Threading;
 
 namespace DatabaseManagementSystem
 {
 	public class Transaction
 	{
-		//Client sender,reciever;
-		string transID;
+		public string ID{ get; private set;}
+		public transactionState state;
+		static int nextTransID;
 
+		// Define transaction states
+		public enum transactionState{
+			None,
+			Reading,
+			Writing,
+			Failed,
+			Done
+		};
+
+		
+			
 		public Transaction()
 		{
-			//Give transID a random string in instantiation
+			//Initial values
+			this.ID = this.getIncrementelID();
+			this.state = transactionState.None;
 		}
 
 		void read(File filename){
+			state = transactionState.Reading;
 		
 		}
 		void write(File filename){
-
+			state = transactionState.Writing;
 		}
+			
+		// Give every transaction a unique ID
+		private string getIncrementelID(){
+			return Interlocked.Increment(ref nextTransID).ToString();
+		}
+
+
+
 
 	}
 }
