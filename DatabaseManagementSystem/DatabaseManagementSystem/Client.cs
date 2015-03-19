@@ -11,8 +11,9 @@ namespace DatabaseManagementSystem
 
 		public Client(string nameOfClient)
 		{
-			this.ID = this.getIncrementelID();
-			this.name = nameOfClient;
+			this.ID = identifier;
+            this.name = nameOfClient;
+
 		}
 
 		// Give every client a unique ID
