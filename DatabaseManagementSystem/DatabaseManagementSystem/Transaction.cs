@@ -4,14 +4,21 @@ namespace DatabaseManagementSystem
 {
 	public class Transaction
 	{
-		Client sender,reciever;
+		//Client sender,reciever;
 		string transID;
 
-		public Transaction(Client sender,Client reciever)
+		public Transaction()
 		{
-			this.sender = sender;
-			this.reciever = reciever;
+			//Give transID a random string in instantiation
 		}
+
+		void read(File filename){
+		
+		}
+		void write(File filename){
+
+		}
+
 	}
 }
-
+	
