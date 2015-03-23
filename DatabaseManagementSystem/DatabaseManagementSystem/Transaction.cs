@@ -7,7 +7,8 @@ namespace DatabaseManagementSystem
 	{
 		public string ID{ get; private set;}
 		public transactionState state;
-		static int nextTransID;
+		private static int nextTransID;
+		public Client transactionOwner{ get; set;}
 
 		// Define transaction states
 		public enum transactionState{
@@ -15,10 +16,8 @@ namespace DatabaseManagementSystem
 			Reading,
 			Writing,
 			Failed,
-			Done
+			Ended
 		};
-
-		
 			
 		public Transaction()
 		{
@@ -26,6 +25,8 @@ namespace DatabaseManagementSystem
 			this.ID = this.getIncrementelID();
 			this.state = transactionState.None;
 		}
+
+
 
 		void read(File filename){
 			state = transactionState.Reading;

@@ -46,6 +46,8 @@
     <Compile Include="Client.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="File.cs" />
+    <Compile Include="InputFileReader.cs" />
+    <Compile Include="GraphGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -6,8 +6,8 @@ namespace DatabaseManagementSystem
 	public class Client
 	{
 		public string ID{ get; private set;}
-		static int nextClientID;
 		public string name;
+		private static int nextClientID;
 
 		public Client(string nameOfClient)
 		{
@@ -20,8 +20,6 @@ namespace DatabaseManagementSystem
 		private string getIncrementelID(){
 			return Interlocked.Increment(ref nextClientID).ToString();
 		}
-
-
 	}
 }
 
