@@ -1,11 +1,13 @@
 ﻿<Properties StartupItem="DatabaseManagementSystem/DatabaseManagementSystem.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DatabaseManagementSystem/File.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DatabaseManagementSystem/Transaction.cs">
     <Files>
-      <File FileName="DatabaseManagementSystem/Program.cs" Line="1" Column="1" />
+      <File FileName="DatabaseManagementSystem/Program.cs" Line="7" Column="35" />
       <File FileName="DatabaseManagementSystem/Client.cs" Line="1" Column="1" />
-      <File FileName="DatabaseManagementSystem/Transaction.cs" Line="1" Column="1" />
-      <File FileName="DatabaseManagementSystem/File.cs" Line="10" Column="10" />
+      <File FileName="DatabaseManagementSystem/Transaction.cs" Line="28" Column="34" />
+      <File FileName="DatabaseManagementSystem/File.cs" Line="10" Column="12" />
+      <File FileName="DatabaseManagementSystem/InputFileReader.cs" Line="13" Column="1" />
+      <File FileName="DatabaseManagementSystem/GraphGenerator.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

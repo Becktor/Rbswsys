@@ -7,7 +7,7 @@ namespace DatabaseManagementSystem
 	public class File
 	{
 		public string ID{ get; private set;}
-		public string fileName;
+		public 		string fileName;
 		private static int nextFileID;
 
 

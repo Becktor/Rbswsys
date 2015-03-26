@@ -6,9 +6,10 @@ namespace DatabaseManagementSystem
 	public class Transaction
 	{
 		public string ID{ get; private set;}
-		public transactionState state;
 		private static int nextTransID;
-		public Client transactionOwner{ get; set;}
+		public transactionState state{get; set;}
+		public Client transactionOwner{get; set;}
+		public File transactionFile{get; set;}
 
 		// Define transaction states
 		public enum transactionState{
@@ -19,23 +20,16 @@ namespace DatabaseManagementSystem
 			Ended
 		};
 			
-		public Transaction()
-		{
+		public Transaction(Client owner, File file)
+		{	
 			//Initial values
 			this.ID = this.getIncrementelID();
 			this.state = transactionState.None;
+			this.transactionOwner = owner;
+			this.transactionFile = file;	
 		}
 
-
-
-		void read(File filename){
-			state = transactionState.Reading;
-		
-		}
-		void write(File filename){
-			state = transactionState.Writing;
-		}
-			
+		C		
 		// Give every transaction a unique ID
 		private string getIncrementelID(){
 			return Interlocked.Increment(ref nextTransID).ToString();
