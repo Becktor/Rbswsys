@@ -29,7 +29,7 @@ namespace DatabaseManagementSystem
 			this.transactionFile = file;	
 		}
 
-		C		
+				
 		// Give every transaction a unique ID
 		private string getIncrementelID(){
 			return Interlocked.Increment(ref nextTransID).ToString();
