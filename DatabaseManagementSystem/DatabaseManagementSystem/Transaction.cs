@@ -23,7 +23,7 @@ namespace DatabaseManagementSystem
 		public Transaction(Client owner, File file)
 		{	
 			//Initial values
-			this.ID = this.getIncrementelID();
+			this.ID = this.getIncrementalID();
 			this.state = transactionState.None;
 			this.transactionOwner = owner;
 			this.transactionFile = file;	
@@ -31,7 +31,7 @@ namespace DatabaseManagementSystem
 
 				
 		// Give every transaction a unique ID
-		private string getIncrementelID(){
+		private string getIncrementalID(){
 			return Interlocked.Increment(ref nextTransID).ToString();
 		}
 

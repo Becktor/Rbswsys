@@ -11,13 +11,13 @@ namespace DatabaseManagementSystem
 
 		public Client(string nameOfClient)
 		{
-			this.ID = this.getIncrementelID();
+			this.ID = this.getIncrementalID();
             this.name = nameOfClient;
 
 		}
 
 		// Give every client a unique ID
-		private string getIncrementelID(){
+		private string getIncrementalID(){
 			return Interlocked.Increment(ref nextClientID).ToString();
 		}
 	}
