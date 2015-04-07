@@ -8,8 +8,8 @@ namespace DatabaseManagementSystem
 {
     class WriteLock
     {
-        private String ID {get; private set;}
-        private Transaction lockOwner { get; private set;}
+        public String ID {get; private set;}
+        private Transaction lockOwner { get; set;}
         private static int nextWriteLockID;
 
         public WriteLock(Client client, File file) {

@@ -8,8 +8,8 @@ namespace DatabaseManagementSystem
 {
     class ReadLock
     {
-        private String ID { get; private set; }
-        private Transaction LockOwner { get; private set; }
+        public String ID { get; private set; }
+        private Transaction LockOwner { get; set; }
         private static int nextReadLockID;
 
         public ReadLock(Client client, File file) {
