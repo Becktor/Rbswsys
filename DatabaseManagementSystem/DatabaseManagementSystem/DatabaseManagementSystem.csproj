@@ -81,7 +81,7 @@
     <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
-    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <CodeContractsAnalysisWarningLevel>3</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -120,6 +120,7 @@
     <Compile Include="File.cs" />
     <Compile Include="InputFileReader.cs" />
     <Compile Include="GraphGenerator.cs" />
+    <Compile Include="TransactionGraph.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
