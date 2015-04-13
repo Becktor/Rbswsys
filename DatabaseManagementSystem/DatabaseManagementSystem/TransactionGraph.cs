@@ -16,11 +16,13 @@ namespace DatabaseManagementSystem
         {
             public String transactionFrom { get; private set;  }
             public String transactionTo { get; private set; }
+            public Boolean isConflicting { get; private set; }
 
-            public Dependency (String transactionFrom, String transactionTo)
+            public Dependency (String transactionFrom, String transactionTo, Boolean isConflicting = false)
             {
                 this.transactionFrom = transactionFrom;
                 this.transactionTo = transactionTo;
+                this.isConflicting = isConflicting;
             }
         }
 
@@ -43,18 +45,37 @@ namespace DatabaseManagementSystem
             graph = new Graph("graph");
         }
 
-        public void addTransaction(String transactionName)
+        public int addTransaction(String transactionName)
         {
-            Contract.Requires<ArgumentNullException>(transactionName != null, 
+            // PRECONDITION
+            
+            Contract.Requires<ArgumentNullException>(transactionName != null,
                 "transactionName must not be null!");
             Contract.Requires<ArgumentNullException>(listTransactions != null,
                 "listTransactions must not be null!");
 
+            int transactionIndex = listTransactions.IndexOf(transactionName);
+            Contract.Requires<ArgumentOutOfRangeException>(transactionIndex == -1,
+                "transactionFrom is not UNIQUE in listTransactions!");
+
+            // POSTCONDITION
+
+            // Make sure at the end of the execution the result is smaller than the list size
+            Contract.Ensures(Contract.Result<int>() >= -1);
+            Contract.Ensures(Contract.Result<int>() < listTransactions.Count);
+
+            // EXECUTION
             listTransactions.Add(transactionName);
+            int i = listTransactions.Count - 1;
+
+            // Returns the index in which an item was inserted.
+            return i;
         }
 
-        public void addDependency(String transactionFrom, String transactionTo)
+        public int addDependency(String transactionFrom, String transactionTo, Boolean isConflicting = false)
         {
+            // PRECONDITION
+
             Contract.Requires<ArgumentNullException>(transactionFrom != null,
                 "transactionFrom must not be null!");
             Contract.Requires<ArgumentNullException>(transactionTo != null,
@@ -65,17 +86,28 @@ namespace DatabaseManagementSystem
             Contract.Requires<ArgumentNullException>(listTransactions != null,
                 "listTransactions must not be null!");
 
+            int transactionFromIndex = listTransactions.IndexOf(transactionFrom);
 
-            //Contract.Ensures(
-            //    Contract.Result<IEnumerable<string>>() != null &&
-            //    Contract.Result<IEnumerable<string>>().Count() ==
-            //        Contract.Result<IEnumerable<string>>()
-            //            .Select(m => transactionTo)
-            //            .Distinct()
-            //            .Count()
-            //);
+            Contract.Requires<ArgumentOutOfRangeException>(transactionFromIndex != -1,
+                "transactionFrom is not found in listTransactions!");
 
-            listDependencies.Add(new Dependency(transactionFrom, transactionTo));
+            int transactionToIndex = listTransactions.IndexOf(transactionTo);
+            Contract.Requires<ArgumentOutOfRangeException>(transactionToIndex != -1,
+                "transactionTo is not found in listTransactions!");
+
+            // POSTCONDITION
+
+            // Make sure at the end of the execution the result is smaller than the list size
+            Contract.Ensures(Contract.Result<int>() >= -1);
+            Contract.Ensures(Contract.Result<int>() < listDependencies.Count);
+
+            // EXECUTION
+            
+            listDependencies.Add(new Dependency(transactionFrom, transactionTo, isConflicting));
+            int i = listDependencies.Count - 1;
+
+            // Returns the index in which an item was inserted.
+            return i;
         }
 
         public void resetGraph()
@@ -88,11 +120,21 @@ namespace DatabaseManagementSystem
 
         public void drawGraph()
         {
+            Contract.Requires<ArgumentNullException>(graph != null,
+                "graph must not be null!");
+
             //create the graph content 
             foreach (Dependency dependency in listDependencies)
             {
-                graph.AddEdge(dependency.transactionFrom, dependency.transactionTo);
+                if (dependency != null) {
+                    Edge edge = graph.AddEdge(dependency.transactionFrom, dependency.transactionTo);
+                    if (dependency.isConflicting && edge != null && edge.EdgeAttr != null)
+                    {
+                        edge.EdgeAttr.Color = Microsoft.Glee.Drawing.Color.Red;
+                    }
+                }
             }
+
             //graph.AddEdge("T1", "T2").EdgeAttr.Color = Microsoft.Glee.Drawing.Color.Red;
             //graph.AddEdge("T2", "T1").EdgeAttr.Color = Microsoft.Glee.Drawing.Color.Red;
             //graph.AddEdge("T2", "T3");
