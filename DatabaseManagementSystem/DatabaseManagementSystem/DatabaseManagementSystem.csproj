@@ -113,6 +113,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Checker.cs" />
+    <Compile Include="FiledoesNotExistException.cs" />
+    <Compile Include="InsufficientArgumentsException.cs" />
+    <Compile Include="InvalidTransactionParameters.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Client.cs" />

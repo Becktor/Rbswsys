@@ -16,7 +16,8 @@ namespace DatabaseManagementSystem
         [STAThread]
         static void Main(string[] args)
         {
-            InputFileReader reader = new InputFileReader();
+            Checker checker = new Checker();
+            InputFileReader reader = new InputFileReader(checker);
 
             string message = "Hello, welcome to the Transaction Analyser!";
             Console.WriteLine(message);
