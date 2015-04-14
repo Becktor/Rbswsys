@@ -13,24 +13,24 @@ namespace DatabaseManagementSystem
         List<Transaction> transactions = new List<Transaction>();
         public void addClient(Client c)
         {
-            Console.WriteLine("Added client: " + c.name);
+            //Console.WriteLine("Added client: " + c.name);
             clients.Add(c);
         }
         public void addTransaction(Transaction t)
         {
-            Console.WriteLine("Added transaction: " + t.transactionNumber);
             transactions.Add(t);
+            //Console.WriteLine("Added transaction: " + t.transactionNumber);
         }
         public void addFile(File f)
         {
-            Console.WriteLine("Added file: " + f.fileName);
+            //Console.WriteLine("Added file: " + f.fileName);
             files.Add(f);
         }
 
         internal File getFile(string file) { 
             foreach(File f in files) {
                 if (f.fileName.Equals(file)) {
-                    Console.WriteLine(f.fileName);
+                    //Console.WriteLine(f.fileName);
                     return f;
                 }
             }
@@ -59,10 +59,31 @@ namespace DatabaseManagementSystem
             throw new NotImplementedException();
         }
 
-        internal void AssignTransactionOwner(string p1, string p2)
+        internal void AssignTransactionOwner(string client, string transactionID)
         {
+            foreach (Transaction t in transactions) { 
+                if(t.transactionNumber == Convert.ToInt32(transactionID)) {
+                    t.transactionOwner = getClient(client);
+                    //TODO: catch null of getClient
+                }
+            }
             return;
-            throw new NotImplementedException();
+        }
+        private Client getClient(string clientName)
+        {
+            Client result = null;
+            foreach (Client c in clients) {
+                if (c.name.Equals(clientName)) {
+                    result = c;
+                }
+            }
+            return result;
+        }
+
+        public void SerializabilityTest() {
+            foreach (Transaction t in transactions) {
+                Console.WriteLine(t.ToString());
+            }
         }
     }
 }
