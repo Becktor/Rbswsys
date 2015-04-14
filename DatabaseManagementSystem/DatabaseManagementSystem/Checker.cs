@@ -11,6 +11,11 @@ namespace DatabaseManagementSystem
         List<Client> clients = new List<Client>();
         List<File> files = new List<File>();
         List<Transaction> transactions = new List<Transaction>();
+
+        //the graph to draw the conflicts
+        TransactionGraph transactionGraph = new TransactionGraph(); 
+
+
         public void addClient(Client c)
         {
             //Console.WriteLine("Added client: " + c.name);
@@ -18,6 +23,19 @@ namespace DatabaseManagementSystem
         }
         public void addTransaction(Transaction t)
         {
+            // add new transaction numbers to the graph.
+            bool newTransactionNumber = true;
+            foreach (Transaction t2 in transactions) {
+                if (t2.transactionNumber == t.transactionNumber) {
+                    newTransactionNumber = false;
+                    break;
+                }
+            }
+            if (newTransactionNumber)
+            {
+                transactionGraph.addTransaction(t.transactionNumber.ToString());
+                //Console.WriteLine("Added transaction number: " + t.transactionNumber.ToString());
+            }
             transactions.Add(t);
             //Console.WriteLine("Added transaction: " + t.transactionNumber);
         }
@@ -81,9 +99,65 @@ namespace DatabaseManagementSystem
         }
 
         public void SerializabilityTest() {
-            foreach (Transaction t in transactions) {
-                Console.WriteLine(t.ToString());
+            
+            
+            // we dont need the locks for the serializability test
+            List<Transaction> readsAndWrites = new List<Transaction>(); 
+            
+            // use past reads and writes to check if there are conflicts with the same object (file) before
+            List<Transaction> pastReadsAndWrites = new List<Transaction>(); 
+           
+           // iterate all transactions and filter out non reads and non writes
+           foreach (Transaction t in transactions) {
+                if (t.state == Transaction.transactionState.Read || t.state == Transaction.transactionState.Write) {
+                    readsAndWrites.Add(t);
+                }
+                //Console.WriteLine(t.ToString());
             }
+
+            // for each transaction check if it creates a conflict with any of the transaction actions before it.
+            foreach (Transaction t in readsAndWrites) {
+                if(t.state == Transaction.transactionState.Read) {
+                    String currentObject = t.transactionFile.fileName;
+                    // check for write conflicts before
+                    foreach(Transaction t2 in pastReadsAndWrites) {
+                        if(t2.transactionFile.fileName == currentObject &&
+                            t2.transactionNumber != t.transactionNumber &&
+                            t2.state == Transaction.transactionState.Write) {
+                            //coflict found of type 1 : write before write
+                                transactionGraph.addDependency(t2.transactionNumber.ToString(),
+                                    t.transactionNumber.ToString(), true);
+                        }
+                    }
+                }
+                else if(t.state == Transaction.transactionState.Write) {
+                        String currentObject = t.transactionFile.fileName;
+                        foreach (Transaction t2 in pastReadsAndWrites)
+                        {
+                            // check for read conflicts before
+                            if (t2.transactionFile.fileName == currentObject &&
+                                                            t2.transactionNumber != t.transactionNumber &&
+                                                            t2.state == Transaction.transactionState.Read) {
+                                //coflict found of type 2 : read before write
+                                transactionGraph.addDependency(t2.transactionNumber.ToString(),
+                                    t.transactionNumber.ToString(), true);
+                            }
+                            // check for write conflicts before
+                            if (t2.transactionFile.fileName == currentObject &&
+                                t2.transactionNumber != t.transactionNumber &&
+                                t2.state == Transaction.transactionState.Write) {
+                                //coflict found of type 3 : write before write
+                                transactionGraph.addDependency(t2.transactionNumber.ToString(),
+                                    t.transactionNumber.ToString(), true);
+                            }
+                        }
+                    }
+                else throw new InvalidTransactionParameters();
+
+                pastReadsAndWrites.Add(t);
+            }
+            // after the algorithm, display the graph:
+            transactionGraph.drawGraph();
         }
     }
 }
