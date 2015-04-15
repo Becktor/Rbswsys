@@ -130,6 +130,8 @@ namespace DatabaseManagementSystem
             Contract.Requires<ArgumentNullException>(graph != null,
                 "graph must not be null!");
 
+            listDependencies = new List<Dependency>();
+
             graph = new Graph("graph");
         }
 
@@ -139,6 +141,14 @@ namespace DatabaseManagementSystem
                 "graph must not be null!");
 
             //create the graph content 
+
+            // draw transactions
+            foreach (String t in listTransactions)
+            {
+                graph.AddNode(t);
+            }
+
+            // draw dependencies
             for (int i = 0; i < listDependencies.Count; i++)
             {
                 Dependency dependency = listDependencies[i];
@@ -150,7 +160,7 @@ namespace DatabaseManagementSystem
                     for (int j = i + 1; j < listDependencies.Count && !isPaired; j++)
                     {
                         Dependency dependencyPair = listDependencies[j];
-                        if(dependencyPair != null &&
+                        if(dependencyPair != null && dependency != null &&
                             dependency.transactionFrom.Equals(dependencyPair.transactionTo) &&
                             dependency.transactionTo.Equals(dependencyPair.transactionFrom))
                         {

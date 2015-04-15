@@ -88,6 +88,7 @@ namespace DatabaseManagementSystem
                 }
             }
             checker.SerializabilityTest();
+            checker.DeadlockTest();
         }
 
         private void doDrawing()
