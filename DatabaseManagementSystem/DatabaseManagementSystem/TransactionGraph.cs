@@ -12,17 +12,20 @@ namespace DatabaseManagementSystem
 {
     class TransactionGraph
     {
+        private const int _MODE_SERIALIZIBILITY = 0;
+        private const int _MODE_DEADLOCK = 1;
+
         public class Dependency
         {
             public String transactionFrom { get; private set;  }
             public String transactionTo { get; private set; }
-            public Boolean isConflicting { get; private set; }
+            public Boolean isCausingTrouble { get; set; }
 
-            public Dependency (String transactionFrom, String transactionTo, Boolean isConflicting = false)
+            public Dependency (String transactionFrom, String transactionTo, Boolean isCausingTrouble = false)
             {
                 this.transactionFrom = transactionFrom;
                 this.transactionTo = transactionTo;
-                this.isConflicting = isConflicting;
+                this.isCausingTrouble = isCausingTrouble;
             }
         }
 
@@ -64,6 +67,9 @@ namespace DatabaseManagementSystem
             Contract.Ensures(Contract.Result<int>() >= -1);
             Contract.Ensures(Contract.Result<int>() < listTransactions.Count);
 
+            // Make sure at the end of the execution the transactionIndex is not -1
+            Contract.Ensures(transactionIndex == -1);
+
             // EXECUTION
             listTransactions.Add(transactionName);
             int i = listTransactions.Count - 1;
@@ -72,7 +78,7 @@ namespace DatabaseManagementSystem
             return i;
         }
 
-        public int addDependency(String transactionFrom, String transactionTo, Boolean isConflicting = false)
+        public int addDependency(String transactionFrom, String transactionTo, Boolean isCausingTrouble = false)
         {
             // PRECONDITION
 
@@ -103,8 +109,17 @@ namespace DatabaseManagementSystem
 
             // EXECUTION
             
-            listDependencies.Add(new Dependency(transactionFrom, transactionTo, isConflicting));
-            int i = listDependencies.Count - 1;
+            // Before adding make sure that newly added dependency is not in the list
+            int occurance = listDependencies.Count(item => item.transactionFrom.Equals(transactionFrom) &&
+                item.transactionTo.Equals(transactionTo));
+
+            // Add dependency to the list
+            int i = -1;
+            if (occurance == 0) 
+            {
+                listDependencies.Add(new Dependency(transactionFrom, transactionTo, isCausingTrouble));
+                i = listDependencies.Count - 1;
+            }
 
             // Returns the index in which an item was inserted.
             return i;
@@ -118,17 +133,38 @@ namespace DatabaseManagementSystem
             graph = new Graph("graph");
         }
 
-        public void drawGraph()
+        public void drawGraph(int mode = _MODE_SERIALIZIBILITY)
         {
             Contract.Requires<ArgumentNullException>(graph != null,
                 "graph must not be null!");
 
             //create the graph content 
-            foreach (Dependency dependency in listDependencies)
+            for (int i = 0; i < listDependencies.Count; i++)
             {
-                if (dependency != null) {
+                Dependency dependency = listDependencies[i];
+
+                // PAINT RED FOR SERIALIZIBILITY PROBLEM
+                if (mode == _MODE_SERIALIZIBILITY)
+                {
+                    bool isPaired = false;
+                    for (int j = i + 1; j < listDependencies.Count && !isPaired; j++)
+                    {
+                        Dependency dependencyPair = listDependencies[j];
+                        if(dependencyPair != null &&
+                            dependency.transactionFrom.Equals(dependencyPair.transactionTo) &&
+                            dependency.transactionTo.Equals(dependencyPair.transactionFrom))
+                        {
+                            dependency.isCausingTrouble = true;
+                            dependencyPair.isCausingTrouble = true;
+                            isPaired = true;
+                        }
+                    }
+                }
+
+                if (dependency != null)
+                {
                     Edge edge = graph.AddEdge(dependency.transactionFrom, dependency.transactionTo);
-                    if (dependency.isConflicting && edge != null && edge.EdgeAttr != null)
+                    if (dependency.isCausingTrouble && edge != null && edge.EdgeAttr != null)
                     {
                         edge.EdgeAttr.Color = Microsoft.Glee.Drawing.Color.Red;
                     }

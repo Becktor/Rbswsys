@@ -99,17 +99,16 @@ namespace DatabaseManagementSystem
         }
 
         public void SerializabilityTest() {
-            
-            
+                
             // we dont need the locks for the serializability test
             List<Transaction> readsAndWrites = new List<Transaction>(); 
             
             // use past reads and writes to check if there are conflicts with the same object (file) before
             List<Transaction> pastReadsAndWrites = new List<Transaction>(); 
            
-           // iterate all transactions and filter out non reads and non writes
-           foreach (Transaction t in transactions) {
-                if (t.state == Transaction.transactionState.Read || t.state == Transaction.transactionState.Write) {
+            // iterate all transactions and filter out non reads and non writes
+            foreach (Transaction t in transactions) {
+            if (t.state == Transaction.transactionState.Read || t.state == Transaction.transactionState.Write) {
                     readsAndWrites.Add(t);
                 }
                 //Console.WriteLine(t.ToString());
@@ -126,7 +125,7 @@ namespace DatabaseManagementSystem
                             t2.state == Transaction.transactionState.Write) {
                             //coflict found of type 1 : write before write
                                 transactionGraph.addDependency(t2.transactionNumber.ToString(),
-                                    t.transactionNumber.ToString(), true);
+                                    t.transactionNumber.ToString());
                         }
                     }
                 }
@@ -140,7 +139,7 @@ namespace DatabaseManagementSystem
                                                             t2.state == Transaction.transactionState.Read) {
                                 //coflict found of type 2 : read before write
                                 transactionGraph.addDependency(t2.transactionNumber.ToString(),
-                                    t.transactionNumber.ToString(), true);
+                                    t.transactionNumber.ToString());
                             }
                             // check for write conflicts before
                             if (t2.transactionFile.fileName == currentObject &&
@@ -148,7 +147,7 @@ namespace DatabaseManagementSystem
                                 t2.state == Transaction.transactionState.Write) {
                                 //coflict found of type 3 : write before write
                                 transactionGraph.addDependency(t2.transactionNumber.ToString(),
-                                    t.transactionNumber.ToString(), true);
+                                    t.transactionNumber.ToString());
                             }
                         }
                     }

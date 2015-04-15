@@ -92,11 +92,7 @@ namespace DatabaseManagementSystem
 
         private void doDrawing()
         {
-            TransactionGraph transactionGraph = new TransactionGraph();
-
-            transactionGraph.addDependency("T1", null);
-
-            transactionGraph.drawGraph();
+            checker.SerializabilityTest();
         }
 	}
 }
