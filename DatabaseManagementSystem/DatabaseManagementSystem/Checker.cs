@@ -205,7 +205,7 @@ namespace DatabaseManagementSystem
                     {
                         // if it is write-locked, start iterating backwards to see who locks it
                         bool isLockerFound = false;
-                        for (int i = pastLocks.Count - 1; i > 0 && !isLockerFound; i--)
+                        for (int i = pastLocks.Count - 1; i >= 0 && !isLockerFound; i--)
                         {
                             Transaction t2 = pastLocks[i];
                             if (t2.transactionFile.fileName == currentObject &&
@@ -230,7 +230,7 @@ namespace DatabaseManagementSystem
                     {
                         // if it is write-locked, start iterating backwards to see who locks it
                         bool isLockerFound = false;
-                        for (int i = pastLocks.Count - 1; i > 0 && !isLockerFound; i--)
+                        for (int i = pastLocks.Count - 1; i >= 0 && !isLockerFound; i--)
                         {
                             Transaction t2 = pastLocks[i];
                             // check for read conflicts before
@@ -251,7 +251,7 @@ namespace DatabaseManagementSystem
                     {
                         // if it is read-locked, start iterating backwards to see who locks it
                         bool isLockerFound = false;
-                        for (int i = pastLocks.Count - 1; i > 0 && !isLockerFound; i--)
+                        for (int i = pastLocks.Count - 1; i >= 0 && !isLockerFound; i--)
                         {
                             Transaction t2 = pastLocks[i];
                             // check for read conflicts before
