@@ -7,6 +7,18 @@ namespace DatabaseManagementSystem
 {
     class FiledoesNotExistException : Exception
     {
-        //TODO: file exception
+        public FiledoesNotExistException()
+        {
+        }
+
+        public FiledoesNotExistException(string message)
+            : base(message)
+        {
+        }
+
+        public FiledoesNotExistException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
     }
 }

@@ -7,6 +7,18 @@ namespace DatabaseManagementSystem
 {
     class InsufficientArgumentsException : Exception
     {
-        //TODO: implement exception.
+         public InsufficientArgumentsException()
+        {
+        }
+
+        public InsufficientArgumentsException(string message)
+            : base(message)
+        {
+        }
+
+        public InsufficientArgumentsException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
     }
 }

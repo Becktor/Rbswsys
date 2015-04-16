@@ -31,7 +31,8 @@ namespace DatabaseManagementSystem
                                     checker.addClient(new Client(words[1]));
                                 }
                             }
-                            else throw new InsufficientArgumentsException();
+                            else if (words.Length < 2) throw new InsufficientArgumentsException("Not enough arguments");
+                            else throw new InsufficientArgumentsException("Too many arguments");
                             break;
 
                         case "draw":
@@ -72,7 +73,8 @@ namespace DatabaseManagementSystem
                                     checker.addFile(new File(words[1]));
                                 }
                             }
-                            else throw new InsufficientArgumentsException();
+                            else if (words.Length < 2) throw new InsufficientArgumentsException("Not enough arguments");
+                            else throw new InsufficientArgumentsException("Too many arguments");
                             break;
                         case "SEND":
                             //Console.WriteLine(words[0]);
@@ -82,7 +84,8 @@ namespace DatabaseManagementSystem
                             {
                                 checker.AssignTransactionOwner(words[1], words[2]);
                             }
-                            else throw new InsufficientArgumentsException();
+                            else if (words.Length < 3) throw new InsufficientArgumentsException("Not enough arguments");
+                            else throw new InsufficientArgumentsException("Too many arguments");
                             break;
                     }
                 }
