@@ -4,7 +4,7 @@ namespace DatabaseManagementSystem
 {
 	public class InputFileReader
 	{
-        public Checker checker; //TODO: cant make this private... throws a build error
+        private Checker checker; //TODO: cant make this private... throws a build error
 		public InputFileReader (Checker c)
 		{
             this.checker = c;
@@ -36,7 +36,7 @@ namespace DatabaseManagementSystem
                             break;
 
                         case "draw":
-                            Console.WriteLine("draw");
+                            //Console.WriteLine("draw");
                             doDrawing();
                             // Thread drawingThread = new Thread(drawGraph) {IsBackground = true};
                             // drawingThread.Start();
@@ -86,6 +86,12 @@ namespace DatabaseManagementSystem
                             }
                             else if (words.Length < 3) throw new InsufficientArgumentsException("Not enough arguments");
                             else throw new InsufficientArgumentsException("Too many arguments");
+                            break;
+                        case "exit":
+                            Console.WriteLine("End of requests");
+                            break;
+                        default:
+                            throw new InvalidArgumentException("The first argument must be CLNT, draw, TRAN, FILE or SEND");
                             break;
                     }
                 }
