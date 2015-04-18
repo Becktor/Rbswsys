@@ -89,11 +89,21 @@ namespace DatabaseManagementSystem
 
         internal void AssignTransactionOwner(string client, string transactionID)
         {
-            foreach (Transaction t in transactions) { 
-                if(t.transactionNumber == Convert.ToInt32(transactionID)) {
-                    t.transactionOwner = getClient(client);
-                    //TODO: catch null of getClient
+            if (clients.Any(c=> c.name==client))
+            {
+                foreach (Transaction t in transactions)
+                {
+                    if (t.transactionNumber == Convert.ToInt32(transactionID))
+                    {
+                        t.transactionOwner = getClient(client);
+                        //TODO: catch null of getClient
+                        //edit Laurent : I just checked if client was in the list, is that good?
+                    }
                 }
+            }
+            else
+            {
+                throw new ClientdoesNotExistException("This client does not exist");
             }
             return;
         }

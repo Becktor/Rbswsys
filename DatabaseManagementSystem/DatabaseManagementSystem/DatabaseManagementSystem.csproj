@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checker.cs" />
+    <Compile Include="ClientdoesNotExistException.cs" />
     <Compile Include="FiledoesNotExistException.cs" />
     <Compile Include="InsufficientArgumentsException.cs" />
     <Compile Include="InvalidArgumentException.cs" />

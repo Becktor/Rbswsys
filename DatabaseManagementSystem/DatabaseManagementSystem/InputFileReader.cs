@@ -4,7 +4,7 @@ namespace DatabaseManagementSystem
 {
 	public class InputFileReader
 	{
-        private Checker checker; //TODO: cant make this private... throws a build error
+        private Checker checker; 
 		public InputFileReader (Checker c)
 		{
             this.checker = c;
@@ -91,7 +91,7 @@ namespace DatabaseManagementSystem
                             Console.WriteLine("End of requests");
                             break;
                         default:
-                            throw new InvalidArgumentException("The first argument must be CLNT, draw, TRAN, FILE or SEND");
+                            throw new InvalidArgumentException("The first argument must be CLNT, draw, TRAN, FILE, SEND or exit");
                             break;
                     }
                 }
