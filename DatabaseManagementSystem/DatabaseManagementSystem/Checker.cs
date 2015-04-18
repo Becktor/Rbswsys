@@ -58,16 +58,26 @@ namespace DatabaseManagementSystem
 
         internal bool ClientDoesNotExist(string p)
         {
-            //TODO: check if client exists already... return true/false
+            foreach (Client c in clients)
+            {
+                if (c.name == p)
+                {
+                    Console.WriteLine("Client already exists");
+                    return false;
+                }
+            }
             return true;
-            throw new NotImplementedException();
         }
 
         internal bool FileDoesNotExist(string p)
         {
-            //TODO: check if file exists already... return true/false
+            foreach (File f in files) { 
+                if(f.fileName == p) {
+                    Console.WriteLine("File already exists");
+                    return false;
+                }
+            }
             return true;
-            throw new NotImplementedException();
         }
 
         internal bool validateTransactionParameters()
