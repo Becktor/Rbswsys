@@ -54,8 +54,6 @@ namespace DatabaseManagementSystem
             
             Contract.Requires<ArgumentNullException>(transactionName != null,
                 "transactionName must not be null!");
-            Contract.Requires<ArgumentNullException>(listTransactions != null,
-                "listTransactions must not be null!");
 
             int transactionIndex = listTransactions.IndexOf(transactionName);
             Contract.Requires<ArgumentOutOfRangeException>(transactionIndex == -1,
@@ -88,9 +86,6 @@ namespace DatabaseManagementSystem
                 "transactionTo must not be null!");
             Contract.Requires<ArgumentNullException>(listDependencies != null,
                 "listDependencies must not be null!");
-
-            Contract.Requires<ArgumentNullException>(listTransactions != null,
-                "listTransactions must not be null!");
 
             int transactionFromIndex = listTransactions.IndexOf(transactionFrom);
 
@@ -141,7 +136,7 @@ namespace DatabaseManagementSystem
                 "graph must not be null!");
             Contract.Requires<ArgumentNullException>(listDependencies != null,
                  "listDependencies must not be null!");
-            Contract.Assume(listDependencies != null);
+            Contract.Assert(listDependencies != null);
             //create the graph content 
 
             // draw transactions
