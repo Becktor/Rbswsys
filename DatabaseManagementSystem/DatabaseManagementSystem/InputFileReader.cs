@@ -96,7 +96,6 @@ namespace DatabaseManagementSystem
                                 break;
                             default:
                                 throw new InvalidArgumentException("The first argument must be CLNT, draw, TRAN, FILE, SEND or exit");
-                                break;
                         }
                     }
 

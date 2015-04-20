@@ -23,7 +23,6 @@ namespace DatabaseManagementSystem
             Console.WriteLine(message);
 
             reader.readInput();
-            // David rocks
         }
 
         private static int Divide(int p1, int p2)
