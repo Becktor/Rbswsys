@@ -89,6 +89,7 @@ namespace DatabaseManagementSystem
         }
 
         public override String ToString() {
+            
             return "Transaction Number: " + transactionNumber +
                 ". Owned by " + transactionOwner.name +
                     ". Action: " + state + " " +
