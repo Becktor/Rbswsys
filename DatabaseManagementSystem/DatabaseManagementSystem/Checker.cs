@@ -4,19 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
-
-
 namespace DatabaseManagementSystem
 {
     public class Checker
     {
+
         List<Client> clients = new List<Client>();
         List<File> files = new List<File>();
         List<Transaction> transactions = new List<Transaction>();
 
         //the graph to draw the conflicts
         TransactionGraph transactionGraph = new TransactionGraph(); 
-
 
         public void addClient(Client c)
         {
@@ -25,12 +23,13 @@ namespace DatabaseManagementSystem
         }
         public void addTransaction(Transaction t)
         {
+            //PRECONDITION
             Contract.Requires(t != null);
+            //POSTCONDITION
+            Contract.Ensures(t != null);
             // add new transaction numbers to the graph.
             bool newTransactionNumber = true;
             foreach (Transaction t2 in transactions) {
-                Contract.Ensures(Contract.Result<int>() >= -1);
-
                 if (t2.transactionNumber == t.transactionNumber) {
                     newTransactionNumber = false;
                     break;
@@ -46,12 +45,15 @@ namespace DatabaseManagementSystem
         }
         public void addFile(File f)
         {
+            Contract.Requires<ArgumentNullException>(f != null, "File cannot be null");
             //Console.WriteLine("Added file: " + f.fileName);
             files.Add(f);
         }
 
-        internal File getFile(string file) { 
+        internal File getFile(string file) {
+           // Contract.Requires<ArgumentNullException>(files != null, "No files exist");
             foreach(File f in files) {
+                
                 if (f.fileName.Equals(file)) {
                     //Console.WriteLine(f.fileName);
                     return f;
