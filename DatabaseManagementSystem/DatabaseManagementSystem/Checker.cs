@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
+
 
 namespace DatabaseManagementSystem
 {
@@ -23,9 +25,12 @@ namespace DatabaseManagementSystem
         }
         public void addTransaction(Transaction t)
         {
+            Contract.Requires(t != null);
             // add new transaction numbers to the graph.
             bool newTransactionNumber = true;
             foreach (Transaction t2 in transactions) {
+                Contract.Ensures(Contract.Result<int>() >= -1);
+
                 if (t2.transactionNumber == t.transactionNumber) {
                     newTransactionNumber = false;
                     break;
