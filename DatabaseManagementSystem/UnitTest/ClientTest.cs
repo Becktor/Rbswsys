@@ -12,12 +12,12 @@ namespace UnitTest
     public class ClientTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ClientTestMethod()
         {
             // arrange
-            Client client  = new Client("a");
+            Client a  = new Client("a");
             Client b = new Client("b");
-            Client c = new Client("");
+            Client c = new Client(""); // Here a client with an empty name is created, it should not be possible in our code, so not a problem I guess
             // act
             Console.WriteLine("The name of client c is " + c.name);
             // assert
