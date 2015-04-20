@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Diagnostics.Contracts;
 
 namespace DatabaseManagementSystem
 {
@@ -89,7 +90,8 @@ namespace DatabaseManagementSystem
         }
 
         public override String ToString() {
-            
+            Contract.Assume(this.transactionOwner != null);
+            Contract.Assume(this.transactionFile != null);
             return "Transaction Number: " + transactionNumber +
                 ". Owned by " + transactionOwner.name +
                     ". Action: " + state + " " +

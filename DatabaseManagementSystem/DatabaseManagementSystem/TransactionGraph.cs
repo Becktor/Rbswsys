@@ -134,9 +134,11 @@ namespace DatabaseManagementSystem
         {
             Contract.Requires<ArgumentNullException>(graph != null,
                 "graph must not be null!");
-            Contract.Requires<ArgumentNullException>(listDependencies != null,
+            Contract.Requires(listDependencies != null,
                  "listDependencies must not be null!");
             Contract.Assert(listDependencies != null);
+
+            Contract.Ensures(listDependencies != null);
             //create the graph content 
 
             // draw transactions

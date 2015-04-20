@@ -9,12 +9,12 @@ namespace DatabaseManagementSystem
     public class Checker
     {
 
-        List<Client> clients = new List<Client>();
-        List<File> files = new List<File>();
-        List<Transaction> transactions = new List<Transaction>();
+        readonly List<Client> clients = new List<Client>();
+        readonly List<File> files = new List<File>();
+        readonly List<Transaction> transactions = new List<Transaction>();
 
         //the graph to draw the conflicts
-        TransactionGraph transactionGraph = new TransactionGraph(); 
+        readonly TransactionGraph transactionGraph = new TransactionGraph(); 
 
         public void addClient(Client c)
         {
@@ -38,6 +38,7 @@ namespace DatabaseManagementSystem
             }
             if (newTransactionNumber)
             {
+                
                 transactionGraph.addTransaction(t.transactionNumber.ToString());
                 //Console.WriteLine("Added transaction number: " + t.transactionNumber.ToString());
             }
