@@ -50,28 +50,39 @@ namespace DatabaseManagementSystem
 
         public static transactionState TranslateTransactionState(string s) {
             transactionState result = transactionState.None;
-            switch (s) {
-                case "READ":
-                    result =  transactionState.Read;
-                    break;
-                case "WRITE":
-                    result = transactionState.Write;
-                    break;
-                case "LOCK-S":
-                    result = transactionState.LockRead;
-                    break;
-                case "LOCK-X":
-                    result = transactionState.LockWrite;
-                    break;
-                case "UNLOCK-X":
-                    result = transactionState.UnlockWrite;
-                    break;
-                case "UNLOCK-S":
-                    result = transactionState.UnlockRead;
-                    break;
+            try
+            {
+
+
+                switch (s)
+                {
+                    case "READ":
+                        result = transactionState.Read;
+                        break;
+                    case "WRITE":
+                        result = transactionState.Write;
+                        break;
+                    case "LOCK-S":
+                        result = transactionState.LockRead;
+                        break;
+                    case "LOCK-X":
+                        result = transactionState.LockWrite;
+                        break;
+                    case "UNLOCK-X":
+                        result = transactionState.UnlockWrite;
+                        break;
+                    case "UNLOCK-S":
+                        result = transactionState.UnlockRead;
+                        break;
+                }
+                if (result == transactionState.None)
+                {
+                    throw new InvalidTransactionParameters();
+                }
             }
-            if (result == transactionState.None) { 
-                throw new InvalidTransactionParameters();
+            catch (InvalidTransactionParameters)
+            {
+                Console.WriteLine("This transaction has invalid parameters");
             }
             return result;
 
