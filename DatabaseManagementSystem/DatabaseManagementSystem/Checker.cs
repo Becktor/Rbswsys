@@ -20,6 +20,7 @@ namespace DatabaseManagementSystem
         {
             //Console.WriteLine("Added client: " + c.name);
             clients.Add(c);
+
         }
         public void addTransaction(Transaction t)
         {
