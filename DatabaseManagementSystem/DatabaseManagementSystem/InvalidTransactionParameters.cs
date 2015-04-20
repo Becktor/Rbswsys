@@ -7,6 +7,18 @@ namespace DatabaseManagementSystem
 {
     class InvalidTransactionParameters : Exception
     {
-        //TODO:  implement exception.
+             public InvalidTransactionParameters()
+        {
+        }
+
+        public InvalidTransactionParameters(string message)
+            : base(message)
+        {
+        }
+
+        public InvalidTransactionParameters(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
     }
 }
