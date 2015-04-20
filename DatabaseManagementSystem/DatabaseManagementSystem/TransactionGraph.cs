@@ -138,7 +138,7 @@ namespace DatabaseManagementSystem
                  "listDependencies must not be null!");
             Contract.Assert(listDependencies != null);
 
-            Contract.Ensures(listDependencies != null);
+            //Contract.Ensures(listDependencies != null);
             //create the graph content 
 
             // draw transactions
