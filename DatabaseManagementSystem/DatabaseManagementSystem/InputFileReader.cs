@@ -15,9 +15,9 @@ namespace DatabaseManagementSystem
             string user_input = "";
 
             Console.WriteLine("Please enter your transactions: (type \"exit\" to quit)");
+            user_input = Console.ReadLine();
             while (user_input != "exit")
             {
-                user_input = Console.ReadLine();
                 //Console.WriteLine(user_input);
                 if (user_input != null)
                 {
@@ -36,15 +36,6 @@ namespace DatabaseManagementSystem
                                 }
                                 else if (words.Length < 2) throw new InsufficientArgumentsException("Not enough arguments");
                                 else throw new InsufficientArgumentsException("Too many arguments");
-                                break;
-
-                            case "draw":
-                                //Console.WriteLine("draw");
-                                doDrawing();
-                                // Thread drawingThread = new Thread(drawGraph) {IsBackground = true};
-                                // drawingThread.Start();
-                                //GraphGenerator graph = new GraphGenerator();
-                                //graph.drawGraph();                        
                                 break;
 
                             case "TRAN":
@@ -108,14 +99,11 @@ namespace DatabaseManagementSystem
                         Console.WriteLine("Invalid number of arguments for this command");
                     }
                 }
+                else throw new NullInputException("User input can not be Null.");
+                user_input = Console.ReadLine();
             }
             checker.SerializabilityTest();
             checker.DeadlockTest();
-        }
-
-        private void doDrawing()
-        {
-            checker.SerializabilityTest();
         }
 	}
 }

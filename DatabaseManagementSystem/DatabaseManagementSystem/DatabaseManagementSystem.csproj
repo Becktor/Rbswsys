@@ -119,6 +119,7 @@
     <Compile Include="InsufficientArgumentsException.cs" />
     <Compile Include="InvalidArgumentException.cs" />
     <Compile Include="InvalidTransactionParameters.cs" />
+    <Compile Include="NullInputException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Client.cs" />
