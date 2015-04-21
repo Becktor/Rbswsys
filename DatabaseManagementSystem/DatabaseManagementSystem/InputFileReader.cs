@@ -181,8 +181,11 @@ namespace DatabaseManagementSystem
                 }
                 user_input = Console.ReadLine();
             }
-            checker.SerializabilityTest();
-            checker.DeadlockTest();
+            if (!test)
+            {
+                checker.SerializabilityTest();
+                checker.DeadlockTest();
+            }
         }
 	}
 }

@@ -9,7 +9,7 @@ namespace DatabaseManagementSystem
     public class Checker
     {
 
-        readonly List<Client> clients = new List<Client>();
+        public readonly List<Client> clients = new List<Client>();
         readonly List<File> files = new List<File>();
         readonly List<Transaction> transactions = new List<Transaction>();
 

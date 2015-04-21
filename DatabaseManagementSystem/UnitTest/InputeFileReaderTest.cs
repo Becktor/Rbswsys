@@ -18,8 +18,6 @@ namespace UnitTest
         {
             // arrange
             InputFileReader testClientVoid = new InputFileReader(c);
-           
-
             testClientVoid.user_input = null;
             testClientVoid.test = true;
            
@@ -27,7 +25,6 @@ namespace UnitTest
             try
             {
             testClientVoid.readInput();
-
             }
             catch(NullInputException)
             {
@@ -37,7 +34,7 @@ namespace UnitTest
                        
 
         }
-
+        [TestMethod]
         public void ReadInputWrong()
         {
             InputFileReader testClientWrong = new InputFileReader(c);
@@ -53,7 +50,8 @@ namespace UnitTest
             }
 
         }
-        public void ReadInputClientEmptyName()
+       [TestMethod]
+       public void ReadInputClientEmptyName()
         {
             InputFileReader testClientEmptyName = new InputFileReader(c);
             testClientEmptyName.user_input="CLNT  ";
@@ -67,17 +65,22 @@ namespace UnitTest
                 Assert.IsTrue(true);
             }
        }
-           /* public void ReadInputClientValid()
-            {
-                InputFileReader testClientA = new InputFileReader(c);
-                InputFileReader testClientB = new InputFileReader(c);
-                testClientA.user_input = "CLNT A";
-                testClientB.user_input = "CLNT B";
-            } */
+        [TestMethod]
+       public void ReadInputClientValid()
+       {
+            InputFileReader testClientA = new InputFileReader(c);
+            testClientA.user_input = "CLNT A";
+            testClientA.test = true;
+            testClientA.readInput();
+            Assert.IsTrue(c.clients.Count == 1);
+       }
+ 
+        [TestMethod]
         public void ReadInputClientTooMany()
         {
             InputFileReader testClientTooMany = new InputFileReader(c);
             testClientTooMany.user_input = "CLNT test test";
+            testClientTooMany.test = true;
             try
             {
                 testClientTooMany.readInput();
@@ -86,6 +89,6 @@ namespace UnitTest
             {
                 Assert.IsTrue(true);
             }
-        }
+        } 
     }
 }
