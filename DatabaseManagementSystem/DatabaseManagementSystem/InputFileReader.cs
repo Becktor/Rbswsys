@@ -20,8 +20,6 @@ namespace DatabaseManagementSystem
         public void runFileAsInput(string filename)
         {
             string fullPath = Directory.GetCurrentDirectory() + "\\inputExamples\\" + filename;
-            
-            //Console.WriteLine(fullPath);
             try
             {
                 String fileContent = System.IO.File.ReadAllText(fullPath);
@@ -33,7 +31,14 @@ namespace DatabaseManagementSystem
                 // Let the user know that the directory did not exist.
                 Console.WriteLine("Directory not found: " + dirEx.Message);
             }
-
+            catch (FileNotFoundException filEx)
+            {
+                // Let the user know that the file did not exist.
+                Console.WriteLine("File not found: " + filEx.Message);
+                Console.WriteLine("");
+                readInput();
+            }
+            
             if (fileLineNumber >= lines.Length -1 )
             {
                 readingFromFile = false;
