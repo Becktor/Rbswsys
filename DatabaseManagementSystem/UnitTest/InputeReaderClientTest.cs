@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace UnitTest
 {
     [TestClass]
-    public class InputFileReaderTest
+    public class InputReaderTest
     {
         Checker c = new Checker();
 
