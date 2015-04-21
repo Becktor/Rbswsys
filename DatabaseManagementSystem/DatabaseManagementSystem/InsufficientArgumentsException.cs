@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DatabaseManagementSystem
 {
-    class InsufficientArgumentsException : Exception
+    public class InsufficientArgumentsException : Exception
     {
          public InsufficientArgumentsException()
         {

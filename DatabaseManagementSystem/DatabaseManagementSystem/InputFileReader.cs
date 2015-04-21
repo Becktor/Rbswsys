@@ -6,7 +6,9 @@ namespace DatabaseManagementSystem
 	public class InputFileReader
 	{
         private Checker checker; 
-        string user_input = "";
+        public string user_input = "";
+        public bool test = false;
+        public bool testSuccess = false;
         String filename;
         int fileLineNumber = 0;
         bool readingFromFile = false;
@@ -53,10 +55,14 @@ namespace DatabaseManagementSystem
         }
 
         public void readInput() {
-            if (!readingFromFile)
+            if (!readingFromFile && !test)
             {
                 Console.WriteLine("Please enter your transactions or type 'f' to specify a transaction file: (type \"exit\" to quit)");
                 user_input = Console.ReadLine();
+            }
+            if(test)
+            {
+                Console.WriteLine("test is running");
             }
             while (user_input != "exit" )
             {
@@ -74,8 +80,8 @@ namespace DatabaseManagementSystem
                                     if (checker.ClientDoesNotExist(words[1]))
                                     {
                                         checker.addClient(new Client(words[1]));
-                                        
-                                        if (readingFromFile) 
+
+                                        if (readingFromFile)
                                             fileLineNumber++;
                                     }
                                 }
@@ -97,7 +103,7 @@ namespace DatabaseManagementSystem
                                         checker.addTransaction(new Transaction(checker.getFile(words[2]),
                                         Transaction.TranslateTransactionState(words[1]), Convert.ToInt32(words[3])));
                                         //Console.WriteLine("Done with checker.add Transation.");
-                                        if (readingFromFile) 
+                                        if (readingFromFile)
                                             fileLineNumber++;
                                     }
                                     else
@@ -113,7 +119,7 @@ namespace DatabaseManagementSystem
                                     if (checker.FileDoesNotExist(words[1]))
                                     {
                                         checker.addFile(new File(words[1]));
-                                        if (readingFromFile) 
+                                        if (readingFromFile)
                                             fileLineNumber++;
                                     }
                                 }
@@ -127,7 +133,7 @@ namespace DatabaseManagementSystem
                                 if (words.Length == 3)
                                 {
                                     checker.AssignTransactionOwner(words[1], words[2]);
-                                    if (readingFromFile) 
+                                    if (readingFromFile)
                                         fileLineNumber++;
                                 }
                                 else if (words.Length < 3) throw new InsufficientArgumentsException("Not enough arguments");
@@ -154,11 +160,24 @@ namespace DatabaseManagementSystem
                         Console.WriteLine("Invalid number of arguments for this command");
                     }
                 }
-                else throw new NullInputException("User input can not be Null.");
-
+                else
+                {
+                    throw new NullInputException("User input can not be Null.");
+                   /* if (test)
+                    {
+                        testSuccess = true;
+                     
+                        break;
+                    }*/
+                }
                 if (readingFromFile && user_input != "exit")
                 {
                     runFileAsInput(filename);
+                }
+                if(test)
+                {
+                    Console.WriteLine("test");
+                    break;
                 }
                 user_input = Console.ReadLine();
             }
