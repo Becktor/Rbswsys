@@ -50,7 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="InputeFileReaderTest.cs" />
+    <Compile Include="InputeReaderClientTest.cs" />
+    <Compile Include="InputeReaderFileTest.cs" />
     <Compile Include="FileTest.cs" />
     <Compile Include="ClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

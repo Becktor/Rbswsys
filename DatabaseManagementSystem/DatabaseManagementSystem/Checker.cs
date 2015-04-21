@@ -10,8 +10,8 @@ namespace DatabaseManagementSystem
     {
 
         public readonly List<Client> clients = new List<Client>();
-        readonly List<File> files = new List<File>();
-        readonly List<Transaction> transactions = new List<Transaction>();
+        public readonly List<File> files = new List<File>();
+        public readonly List<Transaction> transactions = new List<Transaction>();
 
         //the graph to draw the conflicts
         readonly TransactionGraph transactionGraph = new TransactionGraph(); 
