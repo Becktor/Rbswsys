@@ -7,12 +7,17 @@ namespace DatabaseManagementSystem
 	{
         private Checker checker; 
         public string user_input = "";
+
+        // Variables used for testing
         public bool test = false;
         public bool testSuccess = false;
+
+        // Variables used for filetext input
         String filename;
         int fileLineNumber = 0;
-        bool readingFromFile = false;
         string[] lines;
+        bool readingFromFile = false;
+
 
 		public InputFileReader (Checker c)
 		{
