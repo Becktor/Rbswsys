@@ -126,7 +126,6 @@
     <Compile Include="Transaction.cs" />
     <Compile Include="File.cs" />
     <Compile Include="InputFileReader.cs" />
-    <Compile Include="GraphGenerator.cs" />
     <Compile Include="TransactionGraph.cs" />
   </ItemGroup>
   <ItemGroup>

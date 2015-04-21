@@ -26,14 +26,14 @@ namespace DatabaseManagementSystem
 			End
 		};
 			
-		public Transaction(Client owner, File file, transactionState state)
-		{	
-			//Initial values
-			this.ID = this.getIncrementalID();
-			this.state = state;
-			this.transactionOwner = owner;
-			this.transactionFile = file;	
-		}
+        //public Transaction(Client owner, File file, transactionState state)
+        //{	
+        //    //Initial values
+        //    this.ID = this.getIncrementalID();
+        //    this.state = state;
+        //    this.transactionOwner = owner;
+        //    this.transactionFile = file;	
+        //}
         public Transaction(File file, transactionState state, int transactionNumber)
         {
             //Initial values
@@ -53,8 +53,6 @@ namespace DatabaseManagementSystem
             transactionState result = transactionState.None;
             try
             {
-
-
                 switch (s)
                 {
                     case "READ":
