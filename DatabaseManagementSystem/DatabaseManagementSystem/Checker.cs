@@ -38,8 +38,14 @@ namespace DatabaseManagementSystem
             }
             if (newTransactionNumber)
             {
-                
-                transactionGraph.addTransaction(t.transactionNumber.ToString());
+                if (transactionGraph.addTransaction(t.transactionNumber.ToString()) > 0)
+                {
+                    // Add transaction successful
+                }
+                else
+                {
+                    // Add transaction failed
+                }
                 //Console.WriteLine("Added transaction number: " + t.transactionNumber.ToString());
             }
             transactions.Add(t);

@@ -124,7 +124,7 @@ namespace DatabaseManagementSystem
         {
             Contract.Requires<ArgumentNullException>(graph != null,
                 "graph must not be null!");
-
+            Contract.Ensures(typeof(Graph) == graph.GetType());
             listDependencies = new List<Dependency>();
 
             graph = new Graph("graph");
