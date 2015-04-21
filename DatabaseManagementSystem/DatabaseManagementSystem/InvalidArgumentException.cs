@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseManagementSystem
 {
-    class InvalidArgumentException : Exception
+    public class InvalidArgumentException : Exception
     {
      public InvalidArgumentException()
         {

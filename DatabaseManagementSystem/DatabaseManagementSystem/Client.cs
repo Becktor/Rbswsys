@@ -4,7 +4,7 @@ using System.Threading;
 namespace DatabaseManagementSystem
 {
 	public class Client
-	{
+	{   
 		public string ID{ get; private set;}
 		public string name;
 		private static int nextClientID;
