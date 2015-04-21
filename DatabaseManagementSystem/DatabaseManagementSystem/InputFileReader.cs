@@ -19,7 +19,7 @@ namespace DatabaseManagementSystem
             this.checker = c;
 		}
 
-        public void runFileAsInput(string filename)
+        public void readFile(string filename)
         {
             string fullPath = Directory.GetCurrentDirectory() + "\\inputExamples\\" + filename;
             try
@@ -77,16 +77,11 @@ namespace DatabaseManagementSystem
                             case "CLNT":
                                 if (words.Length == 2)
                                 {
-                                    if (checker.ClientDoesNotExist(words[1]))
-                                    {
-                                        checker.addClient(new Client(words[1]));
-
-                                        if (readingFromFile)
-                                            fileLineNumber++;
-                                    }
+                                    createClient(words[1]);
                                 }
                                 else if (words.Length < 2) throw new InsufficientArgumentsException("Not enough arguments");
                                 else throw new InsufficientArgumentsException("Too many arguments");
+
                                 break;
 
                             case "TRAN":
@@ -97,14 +92,15 @@ namespace DatabaseManagementSystem
                                     //Console.WriteLine(words[1]);
                                     //Console.WriteLine(words[2]);
                                     //Console.WriteLine(words[3]);
+
                                     if (checker.validateTransactionParameters())
                                     {
-                                        //TODO: use classes of locks instead of enum in transaction class.
-                                        checker.addTransaction(new Transaction(checker.getFile(words[2]),
-                                        Transaction.TranslateTransactionState(words[1]), Convert.ToInt32(words[3])));
-                                        //Console.WriteLine("Done with checker.add Transation.");
-                                        if (readingFromFile)
-                                            fileLineNumber++;
+                                        File file = checker.getFile(words[2]);
+                                        Transaction.transactionState state = Transaction.
+                                            TranslateTransactionState(words[1]);
+                                        int transactionNumber = Convert.ToInt32(words[3]);
+            
+                                        createTransaction(state, file, transactionNumber);
                                     }
                                     else
                                     {
@@ -118,9 +114,7 @@ namespace DatabaseManagementSystem
                                 {
                                     if (checker.FileDoesNotExist(words[1]))
                                     {
-                                        checker.addFile(new File(words[1]));
-                                        if (readingFromFile)
-                                            fileLineNumber++;
+                                        createFile(words[1]);
                                     }
                                 }
                                 else if (words.Length < 2) throw new InsufficientArgumentsException("Not enough arguments");
@@ -132,9 +126,7 @@ namespace DatabaseManagementSystem
                                 //Console.WriteLine(words[2]);
                                 if (words.Length == 3)
                                 {
-                                    checker.AssignTransactionOwner(words[1], words[2]);
-                                    if (readingFromFile)
-                                        fileLineNumber++;
+                                    assignTransactionOwner(words[1], words[2]);
                                 }
                                 else if (words.Length < 3) throw new InsufficientArgumentsException("Not enough arguments");
                                 else throw new InsufficientArgumentsException("Too many arguments");
@@ -142,7 +134,7 @@ namespace DatabaseManagementSystem
                             case "f":
                                 Console.WriteLine("Write the file name of input file - see folder inputExamples inside \\bin\\debug\\");
                                 filename = Console.ReadLine();
-                                runFileAsInput(filename);
+                                readFile(filename);
                                 break;
                             case "exit":
                                 Console.WriteLine("End of requests");
@@ -172,7 +164,7 @@ namespace DatabaseManagementSystem
                 }
                 if (readingFromFile && user_input != "exit")
                 {
-                    runFileAsInput(filename);
+                    readFile(filename);
                 }
                 if(test)
                 {
@@ -187,6 +179,42 @@ namespace DatabaseManagementSystem
                 checker.DeadlockTest();
             }
         }
+
+        private void assignTransactionOwner(string client, string transactionID)
+        {
+            checker.AssignTransactionOwner(client, transactionID);
+            if (readingFromFile)
+                fileLineNumber++;
+        }
+
+        private void createClient(string name)
+        {
+            if (checker.ClientDoesNotExist(name))
+            {
+                checker.addClient(new Client(name));
+
+                if (readingFromFile)
+                    fileLineNumber++;
+            }
+        }
+
+        private void createFile(string fileName)
+        {
+            checker.addFile(new File(fileName));
+            if (readingFromFile)
+                fileLineNumber++;
+        }
+
+        private void createTransaction(Transaction.transactionState state, 
+            File file, int transactionNumber)
+        {
+            //TODO: use classes of locks instead of enum in transaction class.
+            checker.addTransaction(new Transaction(file, state, transactionNumber));
+            //Console.WriteLine("Done with checker.add Transation.");
+            if (readingFromFile)
+                fileLineNumber++;
+        }
+
 	}
 }
 
