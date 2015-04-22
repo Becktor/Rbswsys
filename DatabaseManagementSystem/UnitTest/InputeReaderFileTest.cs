@@ -13,7 +13,7 @@ namespace UnitTest
     {
         Checker c = new Checker();
        [TestMethod]
-       public void ReadInputileEmptyName()
+       public void ReadInputFileEmptyName()
         {
             InputFileReader testFileEmptyName = new InputFileReader(c);
             testFileEmptyName.user_input="FILE  ";

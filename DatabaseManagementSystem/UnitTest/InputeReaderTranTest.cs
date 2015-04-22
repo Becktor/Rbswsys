@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 namespace UnitTest
 {
     [TestClass]
-    public class InputReaderFileTest
+    public class InputReaderTranTest
     {
         Checker c = new Checker();
        [TestMethod]
-       public void ReadInputileEmptyName()
+       public void ReadInputTranEmptyName()
         {
-            InputFileReader testFileEmptyName = new InputFileReader(c);
-            testFileEmptyName.user_input="FILE  ";
-            testFileEmptyName.test=true;
+            InputFileReader testTranEmptyName = new InputFileReader(c);
+            testTranEmptyName.user_input="TRAN  ";
+            testTranEmptyName.test=true;
             try
             {
-                testFileEmptyName.readInput();
+                testTranEmptyName.readInput();
             }
             catch(InsufficientArgumentsException)
             {
@@ -28,12 +28,13 @@ namespace UnitTest
             }
        }
         [TestMethod]
-       public void ReadInputFileValid()
+       public void ReadInputTranValid()
        {
-            InputFileReader testFileA = new InputFileReader(c);
-            testFileA.user_input = "FILE A";
-            testFileA.test = true;
-            testFileA.readInput();
+            c.addFile(new File("X"));
+            InputFileReader testTranA = new InputFileReader(c);
+            testTranA.user_input = "TRAN \"WRITE X\" 1";
+            testTranA.test = true;
+            testTranA.readInput();
             Assert.IsTrue(c.files.Count == 1);
        }
  
