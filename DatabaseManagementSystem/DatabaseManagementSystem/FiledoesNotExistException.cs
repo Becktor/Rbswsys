@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DatabaseManagementSystem
 {
-    class FiledoesNotExistException : Exception
+    public class FiledoesNotExistException : Exception
     {
         public FiledoesNotExistException()
         {

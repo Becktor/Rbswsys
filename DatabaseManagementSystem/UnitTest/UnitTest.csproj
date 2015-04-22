@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="getFileTest.cs" />
     <Compile Include="InputeReaderClientTest.cs" />
     <Compile Include="InputeReaderTranTest.cs" />
     <Compile Include="InputeReaderFileTest.cs" />

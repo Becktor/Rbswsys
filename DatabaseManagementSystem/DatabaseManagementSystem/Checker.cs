@@ -58,7 +58,7 @@ namespace DatabaseManagementSystem
             files.Add(f);
         }
 
-        internal File getFile(string file) {
+        public File getFile(string file) {
            // Contract.Requires<ArgumentNullException>(files != null, "No files exist");
             foreach(File f in files) {
                 
